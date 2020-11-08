@@ -16,13 +16,17 @@ func showDynamicDesktopImageInfo(file: String) {
     }
 
     print("type: \(CGImageSourceGetType(source!))")
-
-    let status = CGImageSourceGetStatus(source!)
-    print("status: \(status.rawValue)")
+    
+    let props = CGImageSourceCopyProperties(source!, nil) as NSDictionary?
+    for (key, value) in props! {
+        print("[\(key)] \(value)")
+    }
 
     let count = CGImageSourceGetCount(source!)
     for i in 0..<count {
-        let indexStatus = CGImageSourceGetStatusAtIndex(source!, i)
-        print("[\(i)] \(indexStatus.rawValue)")
+        let indexProps = CGImageSourceCopyPropertiesAtIndex(source!, i, nil) as NSDictionary?
+        for (key, value) in indexProps! {
+            print("[\(i)] [\(key)] \(value)")
+        }
     }
 }
