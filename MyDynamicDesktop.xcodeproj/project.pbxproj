@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7937E48C255888FC002435C1 /* info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7937E48B255888FC002435C1 /* info.swift */; };
 		794109702557791500D1C5D0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7941096F2557791500D1C5D0 /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7937E48B255888FC002435C1 /* info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = info.swift; sourceTree = "<group>"; };
 		7941096C2557791500D1C5D0 /* MyDynamicDesktop */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MyDynamicDesktop; sourceTree = BUILT_PRODUCTS_DIR; };
 		7941096F2557791500D1C5D0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				7941096F2557791500D1C5D0 /* main.swift */,
+				7937E48B255888FC002435C1 /* info.swift */,
 			);
 			path = MyDynamicDesktop;
 			sourceTree = "<group>";
@@ -120,6 +123,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				794109702557791500D1C5D0 /* main.swift in Sources */,
+				7937E48C255888FC002435C1 /* info.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
