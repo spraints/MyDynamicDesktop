@@ -1,0 +1,50 @@
+#!/bin/bash
+#/ Usage: script/release TAG
+
+if [ $# -ne 1 ]; then
+  cat "$0" | grep ^#/ | cut -c4-
+  exit 1
+fi
+
+case "${1}" in
+  -*)
+    cat "$0" | grep ^#/ | cut -c4-
+    exit 1 ;;
+esac
+
+if [ -f ~/.github-token ]; then
+  . ~/.github-token
+fi
+if [ -z "$GITHUB_TOKEN" ]; then
+  echo "error: \$GITHUB_TOKEN must be set"
+  exit 1
+fi
+
+TAG="$1"
+BUILD=$HOME/Library/Developer/Xcode/DerivedData/MyDynamicDesktop-adkcwwpvaqrbygeekukkxgburyve/Build/Products/Debug/MyDynamicDesktop
+
+while true; do
+  echo 'Open the project in xcode and build it. Press <enter> when done.'
+  read _
+  if [ ! -f "$BUILD" ]; then
+    echo "$BUILD: not found, try again."
+  else
+    break
+  fi
+done
+
+cd "$(dirname "$0")/release-tool"
+echo "Installing node dependencies..."
+if ! npm install >&/dev/null; then
+  echo "ERROR make sure 'npm install' completes successfully."
+  exit 1
+fi
+
+rm -rf pkg
+mkdir pkg
+cd pkg
+cp $BUILD .
+tar cf "../MyDynamicDesktop-${TAG}.tar" *
+cd ..
+
+exec node publishrelease.js "${TAG}" "MyDynamicDesktop-${TAG}.tar"

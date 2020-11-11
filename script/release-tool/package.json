@@ -1,0 +1,14 @@
+{
+  "name": "dynamic-desktop-release-tool",
+  "version": "0.0.1",
+  "description": "make a release on github.com",
+  "main": "publishrelease.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matt Burke <spraints@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/rest": "^18.0.9"
+  }
+}
