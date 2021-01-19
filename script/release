@@ -47,4 +47,4 @@ cp $BUILD .
 tar cf "../MyDynamicDesktop-${TAG}.tar" *
 cd ..
 
-exec node publishrelease.js "${TAG}" "MyDynamicDesktop-${TAG}.tar"
+exec env GITHUB_TOKEN=$GITHUB_TOKEN node publishrelease.js "${TAG}" "MyDynamicDesktop-${TAG}.tar"

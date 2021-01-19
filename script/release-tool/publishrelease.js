@@ -19,7 +19,7 @@ async function main() {
   const release = {owner: 'spraints', repo: 'MyDynamicDesktop', tag_name: tag}
   console.log(['createRelease', release])
   const createRes = await octokit.repos.createRelease({owner: 'spraints', repo: 'MyDynamicDesktop', tag_name: tag})
-  console.log(createRes.data.html_url)
+  console.log(`*** Release created at ${createRes.data.html_url} (${reqid(createRes)})`)
 
   const upload = {
     url: createRes.data.upload_url,
@@ -31,7 +31,15 @@ async function main() {
   }
   console.log(['uploadReleaseAsset', upload])
   upload.data = fs.createReadStream(archive)
-  await octokit.repos.uploadReleaseAsset(upload)
+  const resp = await octokit.repos.uploadReleaseAsset(upload)
+  console.log(`*** Release asset uploaded (${reqid(createRes)})`)
 }
 
-main().then(() => console.log('Done.'), e => console.log(['error', e]))
+function reqid(response) {
+  if (response && response.headers && response.headers['x-github-request-id']) {
+    return response.headers['x-github-request-id']
+  }
+  return 'unknown request id'
+}
+
+main().then(() => {}, e => console.log(['error', e]))
