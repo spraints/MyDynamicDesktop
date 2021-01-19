@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		7937E48C255888FC002435C1 /* info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7937E48B255888FC002435C1 /* info.swift */; };
 		794109702557791500D1C5D0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7941096F2557791500D1C5D0 /* main.swift */; };
+		79D9D20125B66FC9000796E8 /* location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D9D20025B66FC9000796E8 /* location.swift */; };
+		79D9D20525B670EC000796E8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D9D20425B670EC000796E8 /* CoreLocation.framework */; };
+		79D9D20725B671AD000796E8 /* build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D9D20625B671AD000796E8 /* build.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +30,9 @@
 		7937E48B255888FC002435C1 /* info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = info.swift; sourceTree = "<group>"; };
 		7941096C2557791500D1C5D0 /* MyDynamicDesktop */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MyDynamicDesktop; sourceTree = BUILT_PRODUCTS_DIR; };
 		7941096F2557791500D1C5D0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		79D9D20025B66FC9000796E8 /* location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = location.swift; sourceTree = "<group>"; };
+		79D9D20425B670EC000796E8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		79D9D20625B671AD000796E8 /* build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = build.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79D9D20525B670EC000796E8 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +52,7 @@
 			children = (
 				7941096E2557791500D1C5D0 /* MyDynamicDesktop */,
 				7941096D2557791500D1C5D0 /* Products */,
+				79D9D20325B670EC000796E8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,8 +69,18 @@
 			children = (
 				7941096F2557791500D1C5D0 /* main.swift */,
 				7937E48B255888FC002435C1 /* info.swift */,
+				79D9D20025B66FC9000796E8 /* location.swift */,
+				79D9D20625B671AD000796E8 /* build.swift */,
 			);
 			path = MyDynamicDesktop;
+			sourceTree = "<group>";
+		};
+		79D9D20325B670EC000796E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				79D9D20425B670EC000796E8 /* CoreLocation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -122,7 +140,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79D9D20125B66FC9000796E8 /* location.swift in Sources */,
 				794109702557791500D1C5D0 /* main.swift in Sources */,
+				79D9D20725B671AD000796E8 /* build.swift in Sources */,
 				7937E48C255888FC002435C1 /* info.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
