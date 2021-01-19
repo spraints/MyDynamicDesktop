@@ -8,52 +8,54 @@
 import Foundation
 
 func showDynamicDesktopImageInfo(file: String) {
-    let url = NSURL(fileURLWithPath:file)
+    let url = NSURL(fileURLWithPath: file)
     let source = CGImageSourceCreateWithURL(url, nil)
     if source == nil {
         print("\(file): Not an image")
         exit(1)
     }
     
-    print("type: \(CGImageSourceGetType(source!))")
+    print("\(file):")
     
-    //    let props = CGImageSourceCopyProperties(source!, nil) as NSDictionary?
-    //    for (key, value) in props! {
-    //        print("[\(key)] \(value)")
-    //    }
+    let metadata = CGImageSourceCopyMetadataAtIndex(source!, 0, nil)
     
-    let count = CGImageSourceGetCount(source!)
-    for i in 0..<count {
-        //        let indexProps = CGImageSourceCopyPropertiesAtIndex(source!, i, nil) as NSDictionary?
-        //        for (key, value) in indexProps! {
-        //            print("[\(i)] [\(key)] \(value)")
-        //        }
-        
-        let indexMetadata = CGImageSourceCopyMetadataAtIndex(source!, i, nil)
-        if indexMetadata != nil {
-            let tags = CGImageMetadataCopyTags(indexMetadata!) as NSArray?
-            if tags != nil {
-                for o in tags! {
-                    let tag = o as! CGImageMetadataTag
-                    let name = CGImageMetadataTagCopyName(tag)
-                    let namespace = CGImageMetadataTagCopyNamespace(tag)
-                    let prefix = CGImageMetadataTagCopyPrefix(tag)
-                    let qualifiers = CGImageMetadataTagCopyQualifiers(tag)
-                    let value = CGImageMetadataTagCopyValue(tag)
-                    let decodedValue = decodeValue(value, namespace: namespace, prefix: prefix, name: name)
-                    // print("[\(i)] METADATA \(tag)")
-                    print("[\(i)] METADATA namespace:\(namespace) prefix:\(prefix) name:\(name) qualifiers:\(qualifiers) value:\(decodedValue)")
-                }
-            }
+    if metadata == nil {
+        print("no metadata")
+        return
+    }
+    
+    let tags = CGImageMetadataCopyTags(metadata!) as NSArray?
+    if tags == nil {
+        print("no tags in metadata")
+        return
+    }
+    
+    var foundSolar = false
+    for o in tags! {
+        let tag = o as! CGImageMetadataTag
+        if isSolar(tag) {
+            print("found solar data!")
+            // TODO - format this more better, using human names rather than "ap", "d", "l", "si", etc.
+            print(decodeSolarData(CGImageMetadataTagCopyValue(tag)))
+            foundSolar = true
         }
+    }
+    if !foundSolar {
+        print("no solar info")
     }
 }
 
-func decodeValue(_ value: AnyObject?, namespace: CFString?, prefix: CFString?, name: CFString?) -> AnyObject? {
-    if strEq(namespace, "http://ns.apple.com/namespace/1.0/") && strEq(prefix, "apple_desktop") && strEq(name, "solar") {
-        return decodeSolarData(value)
+func isSolar(_ tag: CGImageMetadataTag) -> Bool {
+    if !strEq(CGImageMetadataTagCopyNamespace(tag), "http://ns.apple.com/namespace/1.0/") {
+        return false
     }
-    return value
+    if !strEq(CGImageMetadataTagCopyPrefix(tag), "apple_desktop") {
+        return false
+    }
+    if !strEq(CGImageMetadataTagCopyName(tag), "solar") {
+        return false
+    }
+    return true
 }
 
 func decodeSolarData(_ value: AnyObject?) -> NSDictionary {
